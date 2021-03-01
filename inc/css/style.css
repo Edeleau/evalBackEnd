@@ -1,0 +1,82 @@
+html {
+    min-height: 100vh;
+    position  : relative;
+    padding   : 56px 0;
+}
+
+footer {
+    position: absolute;
+    bottom  : 0;
+}
+
+nav {
+    max-height: 56px;
+}
+
+.vignette {
+    max-width: 30%;
+}
+
+.w-20 {
+    max-width: 20%;
+}
+
+.w-17 {
+    width: 17%;
+}
+
+#bandeaucookies {
+    position: fixed;
+    bottom  : -70px;
+}
+
+.table th {
+    vertical-align: middle;
+}
+
+.infoPhotoMap {
+    max-height: 540px;
+}
+
+.avisContainer {
+    height: 0px;
+}
+
+#avis {
+    display: none;
+}
+
+.rating {
+
+    font-size: 20px;
+}
+
+.rating input {
+    float   : right;
+    opacity : 0;
+    position: absolute;
+}
+
+.rating label {
+    float             : right;
+    color             : #aaa;
+    text-decoration   : none;
+    -webkit-transition: color .4s;
+    -moz-transition   : color .4s;
+    -o-transition     : color .4s;
+    transition        : color .4s;
+}
+
+.rating label:hover~label,
+.rating input:focus~label,
+.rating label:hover
+{
+    color : orange;
+    cursor: pointer;
+}
+
+@media (max-width:720px) {
+    .vignette {
+        max-width: 100%;
+    }
+}
