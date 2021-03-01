@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.edeleau.com/$1 [R,L]
+
+RewriteCond %{HTTP_HOST} ^edeleau.com$
+RewriteRule ^(.*) http://www.edeleau.com/$1 [QSA,L,R=301]
