@@ -74,7 +74,9 @@ nav {
     color : orange;
     cursor: pointer;
 }
-
+iframe{
+    border: none;
+}
 @media (max-width:720px) {
     .vignette {
         max-width: 100%;

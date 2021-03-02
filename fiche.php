@@ -89,7 +89,7 @@ if (!empty($errors)) : ?>
             </div>
             <div class="h-50">
                 <p class="font-weight-bold m-0 local">Localisation</p>
-                <iframe class="w-100 h-100 pb-5 mt-2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?hl=fr&amp;q=<?php echo $infos['adresse'] . '%20' . $infos['cp'] . '%20' . $infos['ville'] ?>&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                <iframe class="w-100 h-100 pb-5 mt-2" src="https://maps.google.com/maps?hl=fr&amp;q=<?php echo str_replace(' ', '%20',  $infos['adresse'] . '%20' . $infos['cp'] . '%20' . $infos['ville']) ?>&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             </div>
 
         </div>
@@ -106,7 +106,7 @@ if (!empty($errors)) : ?>
         </div>
         <div class="col-md-5">
             <p><i class="fas fa-map-marker-alt"></i> Adresse : <?php echo $infos['adresse'] . ', ' . $infos['cp'] . ', ' . $infos['ville'] ?></p>
-            <p><i class="fas fa-euro-sign"></i></i> Prix : <?php echo $infos['prix'] ?>&euro;</p>
+            <p><i class="fas fa-euro-sign"></i> Prix : <?php echo $infos['prix'] ?>&euro;</p>
         </div>
     </div>
     <?php if (isConnected()) : ?>

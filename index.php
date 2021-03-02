@@ -78,15 +78,15 @@ ON s.id_salle = p.id_salle")->fetch();
         <p id="affichePrix"></p>
         <div class="form-row" id="datepicker">
             <div>
-                <label for="range-start">Date d'arrivée</label>
+                <label for="date_arrivee">Date d'arrivée</label>
                 <div class="form-group">
-                    <input type="text" name="date_arrivee" class="form-control datepicker-input" value="<?php echo $dateArrivee ?? $_POST['range-start'] ?? '' ?>" required>
+                    <input type="text" name="date_arrivee" id="date_arrivee" class="form-control datepicker-input" value="<?php echo $dateArrivee ?? $_POST['range-start'] ?? '' ?>" required>
                 </div>
             </div>
             <div>
-                <label for="range-end">Date de départ</label>
+                <label for="date_depart">Date de départ</label>
                 <div class="form-group">
-                    <input type="text" name="date_depart" class="form-control datepicker-input" value="<?php echo $dateDepart ?? $_POST['range-start'] ?? '' ?>" required>
+                    <input type="text" name="date_depart" id="date_depart" class="form-control datepicker-input" value="<?php echo $dateDepart ?? $_POST['range-start'] ?? '' ?>" required>
                 </div>
             </div>
         </div>

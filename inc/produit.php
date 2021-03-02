@@ -46,6 +46,8 @@ if (!empty($_GET) && isset($_GET)) {
             $args[$key] = $value;
         }
     }
+}else{
+    $whereclause .=' limit 10 ';
 }
 
 $produits = execRequete("SELECT *  FROM produit p
@@ -73,7 +75,7 @@ if ($produits->rowCount() == 0) {
                     </div>
                     <div class="caption pt-2 px-2">
                         <h4 class="float-right">
-                            <?php echo number_format($produit['prix'], 2, ',', '&nbsp') ?>€
+                            <?php echo number_format($produit['prix'], 2, ',', '&nbsp;') ?>€
                         </h4>
                         <a href="fiche.php?id_produit=<?php echo $produit['id_produit'] ?>">
                             <h4><?php echo $produit['titre'] ?></h4>
