@@ -60,7 +60,7 @@ if (!empty($_POST)) {
             }
             // gérer la photo (copie physique du fichier)
             $extension = (new SplFileInfo($_FILES['photo']['name']))->getExtension();
-            $nomPhotoBDD = str_replace(' ', '',$_POST['titre']) . '_' . date("YmdHis").'.'.$extension;
+            $nomPhotoBDD = str_replace(' ', '', $_POST['titre']) . '_' . date("YmdHis") . '.' . $extension;
             $dossierPhotos = $_SERVER['DOCUMENT_ROOT'] . URL . 'photos/';
             move_uploaded_file($_FILES['photo']['tmp_name'], $dossierPhotos . $nomPhotoBDD);
         } else {
@@ -110,7 +110,12 @@ require_once('../inc/header.php');
 if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'affichage')) {
 
     // Affichage des salles
-    $resultats = execRequete('SELECT * FROM salle');
+    $order = '';
+    $testOrder = ['id_salle', 'titre', 'description', 'photo', 'pays', 'ville', 'adresse','cp','capacite','categorie'];
+    if (isset($_GET['order']) &&  in_array($_GET['order'], $testOrder)) {
+        $order = 'ORDER BY ' . $_GET['order'];
+    }
+    $resultats = execRequete('SELECT * FROM salle '. $order);
     if ($resultats->rowCount() == 0) {
 ?>
         <div class="alert alert-info mt-5">Il n'y a pas encore de salles enregistrés</div>
@@ -125,7 +130,7 @@ if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'af
                     $colonne = $resultats->getColumnMeta($i);
                     // var_dump(get_class_methods($resultats));
                 ?>
-                    <th><?php echo ucfirst($colonne['name']) ?></th>
+                    <th><a href="?order=<?php echo ($colonne['name']) ?>"><?php echo ucfirst($colonne['name']) ?></a></th>
                 <?php
                 }
                 ?>

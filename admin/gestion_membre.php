@@ -7,9 +7,12 @@ if (!isAdmin()) {
     header('location:' . URL . 'connexion.php');
     exit();
 }
-
-$membres = execRequete('SELECT id_membre, pseudo , nom,prenom,email,civilite, statut FROM membre');
-
+$order = '';
+$testOrder = ['id_membre','pseudo','nom', 'prenom', 'email', 'civilite','statut' ];
+if (isset($_GET['order']) &&  in_array($_GET['order'],$testOrder)) {
+    $order = 'ORDER BY '.$_GET['order'];
+}
+$membres = execRequete('SELECT id_membre, pseudo , nom,prenom,email,civilite, statut FROM membre '. $order);
 //modif de statut
 if (isset($_POST["majstatut"]) && isSuperAdmin()) {
     switch ($_POST['majStatut']) {
@@ -109,13 +112,13 @@ require_once('../inc/header.php');
 <hr>
 <table class="table table-bordered table-striped table-responsive-xl mt-3">
     <tr>
-        <th>ID membre</th>
-        <th>Pseudo</th>
-        <th>Nom</th>
-        <th>Prenom</th>
-        <th>Email</th>
-        <th>Cicilite</th>
-        <th>Statut</th>
+        <th><a href="?order=id_membre">ID membre</a> </th>
+        <th><a href="?order=pseudo">Pseudo</a></th>
+        <th><a href="?order=nom">Nom</a></th>
+        <th><a href="?order=prenom">Prenom</a></th>
+        <th><a href="?order=email">Email</a></th>
+        <th><a href="?order=civilite">Cicilite</a></th>
+        <th><a href="?order=statut">Statut</a></th>
         <th>Action</th>
 
     </tr>

@@ -7,13 +7,16 @@ if (!isAdmin()) {
     header('location:' . URL . 'connexion.php');
     exit();
 }
-
+$order = '';
+$testOrder = ['id_avis', 'm.id_membre', 's.id_salle',  'commentaire', 'note', 'a.date_enregistrement'];
+if (isset($_GET['order']) &&  in_array($_GET['order'], $testOrder)) {
+    $order = 'ORDER BY ' . $_GET['order'];
+}
 $avisS = execRequete('SELECT *, a.date_enregistrement FROM avis a
 INNER JOIN membre m 
 ON m.id_membre = a.id_membre
 INNER JOIN salle s
-ON a.id_salle = s.id_salle
-');
+ON a.id_salle = s.id_salle '. $order);
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && !empty($_GET['id_avis']) && isAdmin()) {
     execRequete("DELETE FROM avis WHERE id_avis=:id_avis", [
@@ -28,12 +31,12 @@ require_once('../inc/header.php');
 <hr>
 <table class="table table-bordered table-striped table-responsive-xl mt-3">
     <tr>
-        <th>ID avis</th>
-        <th>Membre</th>
-        <th>Salle</th>
-        <th>Commentaire</th>
-        <th>Note</th>
-        <th>Date de l'avis</th>
+        <th><a href="?order=id_avis">ID avis</a></th>
+        <th><a href="?order=m.id_membre">Membre</a></th>
+        <th><a href="?order=s.id_salle">Salle</a></th>
+        <th><a href="?order=commentaire">Commentaire</a></th>
+        <th><a href="?order=note">Note</a></th>
+        <th><a href="?order=a.date_enregistrement">Date de l'avis</a></th>
         <th>Action</th>
 
     </tr>

@@ -39,11 +39,11 @@ if (!empty($_POST)) {
     }
 
     // Formatage des dates
-    $date_arrivee =  DateTime::createFromFormat('d-m-Y' , $_POST['range-start']);
-    $date_depart = DateTime::createFromFormat('d-m-Y' ,$_POST['range-end']);
-    if (false!==$date_arrivee  && false!==$date_depart) {
+    $date_arrivee =  DateTime::createFromFormat('d-m-Y', $_POST['range-start']);
+    $date_depart = DateTime::createFromFormat('d-m-Y', $_POST['range-end']);
+    if (false !== $date_arrivee  && false !== $date_depart) {
         $date_arrivee = $date_arrivee->format('Y-m-d');
-        $date_depart= $date_depart->format('Y-m-d');
+        $date_depart = $date_depart->format('Y-m-d');
         // Vérif si les salles ne sont pas déjà réservé 
         $dispoSalle = execRequete(
             "SELECT COUNT(id_produit) AS result FROM produit p
@@ -51,11 +51,13 @@ if (!empty($_POST)) {
              ON s.id_salle = p.id_salle 
              WHERE p.id_salle = :id_salle AND
              date_depart >= :date_arrivee AND 
-             date_arrivee <= :date_depart", [
+             date_arrivee <= :date_depart",
+            [
                 'id_salle' => $_POST['id_salle'],
                 'date_arrivee' => $date_arrivee,
                 'date_depart' => $date_depart
-        ])->fetch();
+            ]
+        )->fetch();
         if ($dispoSalle['result'] > 0) {
             $errors[] = "Salle déjà sur un autre produit sur ces dates, impossible de la créer/éditer";
         }
@@ -65,8 +67,8 @@ if (!empty($_POST)) {
 
     if (empty($errors)) {
 
-        $_POST['date_arrivee'] = $date_arrivee . ' '. $_POST['rangeTime-start'] . ':00';
-        $_POST['date_depart'] = $date_depart . ' '. $_POST['rangeTime-end'] . ':00';
+        $_POST['date_arrivee'] = $date_arrivee . ' ' . $_POST['rangeTime-start'] . ':00';
+        $_POST['date_depart'] = $date_depart . ' ' . $_POST['rangeTime-end'] . ':00';
 
         unset($_POST['rangeTime-start'], $_POST['rangeTime-end'], $_POST['range-end'], $_POST['range-start']);
         if (isset($_POST['id_produit'])) {
@@ -103,10 +105,14 @@ require_once('../inc/header.php');
 if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'affichage')) {
 
     // Affichage des produits
-    $resultats = execRequete('SELECT id_produit , p.id_salle , titre, photo  , DATE_FORMAT(date_arrivee, "%d-%m-%Y %H:%i") AS date_arrivee , DATE_FORMAT(date_depart, "%d-%m-%Y %H:%i") AS date_depart, prix, etat FROM produit p
+    $order = '';
+    $testOrder = ['id_produit', 'id_salle', 'date_arrivee', 'date_depart', 'prix', 'etat'];
+    if (isset($_GET['order']) &&  in_array($_GET['order'], $testOrder)) {
+        $order = 'ORDER BY ' . $_GET['order'];
+    }
+    $resultats = execRequete('SELECT id_produit , p.id_salle , titre, photo  , date_arrivee , date_depart, prix, etat FROM produit p
     INNER JOIN salle s
-    WHERE p.id_salle = s.id_salle
-    ');
+    WHERE p.id_salle = s.id_salle '.$order);
     if ($resultats->rowCount() == 0) {
 ?>
         <div class="alert alert-info mt-5">Il n'y a pas encore de produits enregistrés</div>
@@ -122,13 +128,13 @@ if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'af
                     $colonne = $resultats->getColumnMeta($i);
                     if ($colonne['name'] == 'id_salle') {
                 ?>
-                        <th class="w-17"><?php echo ucfirst($colonne['name']);
-                                            $i += 2 ?></th>
+                        <th class="w-17"><a href="?order=<?php echo($colonne['name'])?>"> <?php echo ucfirst($colonne['name']);
+                                            $i += 2 ?></a></th>
                     <?php
                     } else {
                     ?>
 
-                        <th class="w-17"><?php echo ucfirst($colonne['name']) ?></th>
+                        <th class="w-17"><a href="?order=<?php echo($colonne['name'])?>"><?php echo ucfirst($colonne['name']) ?></a></th>
                 <?php
                     }
                 }
