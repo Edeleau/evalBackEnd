@@ -2,7 +2,7 @@
 <footer class="container-fluid">
     <div class="row">
         <div class="col bg-dark text-light text-center py-3 w-100">
-            &copy;<?php echo date('Y') ?> - ROOM - Tout droits réservés
+            &copy;<?php echo date('Y') ?> - ROOM - Tout droits réservés <a href="<?php echo URL ?>cgv.php">CGV</a> <a href="<?php echo URL ?>mentionsLegale.php">Mentions Légales</a>
 
         </div>
     </div>

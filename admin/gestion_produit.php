@@ -45,15 +45,16 @@ if (!empty($_POST)) {
         $date_arrivee = $date_arrivee->format('Y-m-d');
         $date_depart= $date_depart->format('Y-m-d');
         // Vérif si les salles ne sont pas déjà réservé 
-        $dispoSalle = execRequete("SELECT COUNT(id_produit) AS result FROM produit p
-            INNER JOIN salle s 
-            ON s.id_salle = p.id_salle 
-           WHERE p.id_salle = :id_salle AND
-           date_depart >= :date_arrivee AND 
-           date_arrivee <= :date_depart", [
-            'id_salle' => $_POST['id_salle'],
-            'date_arrivee' => $date_arrivee,
-            'date_depart' => $date_depart
+        $dispoSalle = execRequete(
+            "SELECT COUNT(id_produit) AS result FROM produit p
+             INNER JOIN salle s 
+             ON s.id_salle = p.id_salle 
+             WHERE p.id_salle = :id_salle AND
+             date_depart >= :date_arrivee AND 
+             date_arrivee <= :date_depart", [
+                'id_salle' => $_POST['id_salle'],
+                'date_arrivee' => $date_arrivee,
+                'date_depart' => $date_depart
         ])->fetch();
         if ($dispoSalle['result'] > 0) {
             $errors[] = "Salle déjà sur un autre produit sur ces dates, impossible de la créer/éditer";
