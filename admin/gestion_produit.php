@@ -148,7 +148,7 @@ if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'af
 
                 <tr class="text-center">
                     <td><?php echo ($ligne['id_produit']) ?></td>
-                    <td><?php echo ($ligne['id_salle'] . '-' . $ligne['titre'] . '<br><img class="img-fluid" src="' . URL . 'photos/' . $ligne['photo'] . '" alt="' . $ligne['titre'] . '">') ?></td>
+                    <td><?php echo ($ligne['id_salle'] . '-' . $ligne['titre'] . '<br><a href="' . URL . 'photos/' . $ligne['photo'] . '" data-toggle="lightbox" ><img class="img-fluid" src="' . URL . 'photos/' . $ligne['photo'] . '" alt="' . $ligne['titre'] . '"></a>') ?></td>
                     <td><?php echo ($ligne['date_arrivee']) ?></td>
                     <td><?php echo ($ligne['date_depart']) ?></td>
                     <td><?php echo (number_format($ligne['prix'], 0, ',', '&nbsp')) ?> &euro;</td>

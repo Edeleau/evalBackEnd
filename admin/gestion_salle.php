@@ -146,7 +146,8 @@ if (!isset($_GET['action']) || (isset($_GET['action']) && $_GET['action'] == 'af
                     foreach ($ligne as $key => $value) {
                         switch ($key) {
                             case 'photo':
-                                $value = '<img class="img-fluid" src="' . URL . 'photos/' . $value . '" alt="' . $ligne['titre'] . '">';
+                                
+                                $value = '<a href="' . URL . 'photos/' . $value . '" data-toggle="lightbox" ><img class="img-fluid" src="' . URL . 'photos/' . $value . '" alt="' . $ligne['titre'] . '"></a>';
                                 break;
                             case 'description':
                                 $extrait = (iconv_strlen($value) > 30) ? substr($value, 0, 30) : $value;

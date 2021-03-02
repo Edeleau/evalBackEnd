@@ -23,6 +23,8 @@
 <!-- Appel du timepicker -->
 <script src="<?php echo URL ?>node_modules/pickerjs/dist/picker.js"></script>
 <script type="module" src="<?php echo URL ?>inc/js/ajax.js"></script>
+<!-- JS pour les lightbox -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous"></script>
 <!-- Js animation -->
 <script src="<?php echo URL ?>inc/js/animation.js"></script>
 

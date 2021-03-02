@@ -26,12 +26,12 @@ if (!empty($_POST)) {
                 'id_membre' => $_SESSION['membre']['id_membre'],
                 'id_produit' => $infos['id_produit']
             ]);
-            execRequete("UPDATE produit SET etat   = 'reservation' WHERE id_salle  = :id_salle AND id_produit = :id_produit",[
+            execRequete("UPDATE produit SET etat   = 'reservation' WHERE id_salle  = :id_salle AND id_produit = :id_produit", [
                 'id_salle' => $infos['id_salle'],
-                'id_produit'=>$infos['id_produit']
+                'id_produit' => $infos['id_produit']
             ]);
             $confirmCommande = 'Commande bien enregistrée';
-        }else{
+        } else {
             $confirmCommande = 'Salle déjà réservée';
         }
     } else {
@@ -54,7 +54,6 @@ if (!empty($_POST)) {
                 'note' => $_POST['stars']
             ]);
         }
-
     }
 }
 require_once('inc/header.php');
@@ -80,7 +79,8 @@ if (!empty($errors)) : ?>
     </div>
     <div class="row ">
         <div class="col-md-6 infoPhotoMap">
-            <img src="<?php echo URL . 'photos/' . $infos['photo'] ?>" alt="<?php echo $infos['titre'] ?>" class="mw-100">
+            <a href="<?php echo URL . 'photos/' . $infos['photo'] ?>" data-toggle="lightbox">
+                <img src="<?php echo URL . 'photos/' . $infos['photo'] ?>" alt="<?php echo $infos['titre'] ?>" class="mw-100"></a>
         </div>
         <div class="col-md-6 infoPhotoMap">
             <div class="h-50 position-relative">
